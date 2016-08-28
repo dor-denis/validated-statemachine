@@ -11,6 +11,8 @@ class StateMachineModel
 
     public $stateId;
 
+    public $shouldExecuteTransition = true;
+
     /**
      * Returns the specification of the Statemachine
      *

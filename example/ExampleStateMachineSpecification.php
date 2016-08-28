@@ -2,6 +2,7 @@
 
 namespace ValidatedStatemachine\example;
 
+use ValidatedStatemachine\models\Transition;
 use ValidatedStatemachine\StateMachineSpecification;
 
 class ExampleStateMachineSpecification extends StateMachineSpecification
@@ -47,8 +48,28 @@ class ExampleStateMachineSpecification extends StateMachineSpecification
             ],
             self::TRANSITION_FROM3_TO_4 => [
                 'from' => self::STATE_3,
-                'to'   => self::STATE_4
+                'to'   => self::STATE_4,
+                'validators' => [
+                    [new Validator(), []]
+                ]
             ],
         ];
+    }
+}
+
+class Validator implements \ValidatedStatemachine\models\Validator
+{
+    /**
+     * Transition validators should implement method Validate which accepts transition which is being validated,
+     * model on which the transition is being applied
+     *
+     * @param Transition $transition Transition which is being validated
+     * @param \ValidatedStatemachine\StateMachine      $model      Model on which the transition is being applied
+     *
+     * @return mixed
+     */
+    public function validate(Transition $transition, $model)
+    {
+        return !empty($model->shouldExecuteTransition) && $model->shouldExecuteTransition === true;
     }
 }
