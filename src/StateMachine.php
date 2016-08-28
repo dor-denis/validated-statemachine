@@ -79,11 +79,18 @@ trait StateMachine
      * @return bool
      * @throws exceptions\StateDefinitionIncorrectException
      */
-    public function canExecuteTransition(Transition $transition)
+    public function canExecuteTransition($transition)
     {
+        if (is_string($transition)) {
+            $transition = $this->getTransitionByName($transition);
+            if (!$transition) {
+                return $transition;
+            }
+        }
+
         $this->error = "";
 
-        if (!$transition->validate($this, $this->error)) {
+        if (!$transition->validate($this)) {
             return false;
         }
 
@@ -101,13 +108,21 @@ trait StateMachine
      * @return bool
      * @throws \Exception
      */
-    public function executeTransition(Transition $transition, $data = [])
+    public function executeTransition($transition, $data = [])
     {
+        if(is_string($transition)) {
+            $transition = $this->getTransitionByName($transition);
+            if(!$transition) {
+                return false;
+            }
+        }
+
         $transition->setPayload($data);
 
         if (!$this->canExecuteTransition($transition)) {
             $event = new TransitionFailedEvent($this, $transition);
             EventDispatcherSingleton::getDispatcher()->dispatch(TransitionExecutedEvent::EVENT_NAME, $event);;
+
             return false;
         }
 
@@ -135,7 +150,7 @@ trait StateMachine
             }
         }
 
-        return false;
+        return null;
     }
 
     /**

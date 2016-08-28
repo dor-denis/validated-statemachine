@@ -3,6 +3,7 @@
 namespace ValidatedStatemachine;
 
 use ValidatedStatemachine\exceptions\StateDefinitionIncorrectException;
+use ValidatedStatemachine\exceptions\TransitionNotFoundException;
 use ValidatedStatemachine\models\State;
 use ValidatedStatemachine\models\Transition;
 

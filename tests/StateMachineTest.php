@@ -108,7 +108,7 @@ class StateMachineTest extends PHPUnit_Framework_TestCase
         }
 
         $this->assertEquals($validatedTransition, $this->statemachine->getTransitionByName('validated'));
-        $this->assertFalse($this->statemachine->getTransitionByName('nonExisting'));
+        $this->assertNull($this->statemachine->getTransitionByName('nonExisting'));
     }
 
     /**
