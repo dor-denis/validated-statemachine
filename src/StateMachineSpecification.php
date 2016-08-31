@@ -12,15 +12,12 @@ use ValidatedStatemachine\models\Transition;
  *
  * It is an abstract class which should be extended for every StateMachine specification
  *
- * @author  Denys Dorofeiev <denys.dorofeiev@westwing.de>
  * @package app\modules\statemachine
  */
 abstract class StateMachineSpecification
 {
     /**
      * Initializes the State object from State ID from database
-     *
-     * @author Denys Dorofeiev <denys.dorofeiev@westwing.de>
      *
      * @param integer|State $state ID of the state
      *
@@ -45,8 +42,6 @@ abstract class StateMachineSpecification
 
     /**
      * Initializes Transitions for given State object
-     *
-     * @author Denys Dorofeiev <denys.dorofeiev@westwing.de>
      *
      * @param State $state State to add transitions
      *
@@ -89,8 +84,6 @@ abstract class StateMachineSpecification
     /**
      * Method for creation of State objects
      *
-     * @author Denys Dorofeiev <denys.dorofeiev@westwing.de>
-     *
      * @param integer $stateId ID of the state
      * @param array   $payload Additional info about the state which will be accessible from State object
      *
@@ -104,16 +97,12 @@ abstract class StateMachineSpecification
     /**
      * Gets state definitions for current specification
      *
-     * @author Denys Dorofeiev <denys.dorofeiev@westwing.de>
-     *
      * @return array
      */
     abstract public function getStateDefinitions();
 
     /**
      * Gets transition definitions for current specification
-     *
-     * @author Denys Dorofeiev <denys.dorofeiev@westwing.de>
      *
      * @return array
      */

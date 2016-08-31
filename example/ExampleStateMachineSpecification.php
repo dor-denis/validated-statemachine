@@ -15,13 +15,6 @@ class ExampleStateMachineSpecification extends StateMachineSpecification
     const TRANSITION_FROM1_TO_2 = "from_1_to_2";
     const TRANSITION_FROM3_TO_4 = "from_3_to_4";
 
-    /**
-     * Gets state definitions for current specification
-     *
-     * @author Denys Dorofeiev <denys.dorofeiev@westwing.de>
-     *
-     * @return array
-     */
     public function getStateDefinitions()
     {
         return [
@@ -32,13 +25,6 @@ class ExampleStateMachineSpecification extends StateMachineSpecification
         ];
     }
 
-    /**
-     * Gets transition definitions for current specification
-     *
-     * @author Denys Dorofeiev <denys.dorofeiev@westwing.de>
-     *
-     * @return array
-     */
     public function getTransitionDefinitions()
     {
         return [

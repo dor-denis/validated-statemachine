@@ -22,8 +22,6 @@ class TransitionEventAbstract extends Event
      * TransitionExecutedEvent constructor.
      *
      * @param StateMachine $stateMachine
-     *
-     * @author Denys Dorofeiev <denys.dorofeiev@westwing.de>
      */
     public function __construct($stateMachine, Transition $transition)
     {

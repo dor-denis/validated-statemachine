@@ -13,7 +13,6 @@ use ValidatedStatemachine\models\Transition;
  *
  * Trait which gives StateMachine behaviour to model
  *
- * @author  Denys Dorofeiev <denys.dorofeiev@westwing.de>
  * @package app\modules\statemachine
  */
 trait StateMachine
@@ -25,13 +24,18 @@ trait StateMachine
     /**
      * Set state to the State Machine
      *
-     * @param State $state State which will be applied to the model
+     * @param State|string $state State which will be applied to the model
      *
      * @return $this
      */
-    public function setState(State $state)
+    public function setState($state)
     {
-        $this->{$this->getStateProperty()} = $state->stateId;
+        if($state instanceof State) {
+            $this->{$this->getStateProperty()} = $state->stateId;
+            return $this;
+        }
+
+        $this->{$this->getStateProperty()} = $state;
 
         return $this;
     }
@@ -166,8 +170,6 @@ trait StateMachine
     /**
      * Initialize state from its definition
      *
-     * @author Denys Dorofeiev <denys.dorofeiev@westwing.de>
-     *
      * @param integer $stateId ID of state
      *
      * @return State
@@ -188,8 +190,6 @@ trait StateMachine
     /**
      * Returns the specification of the Statemachine
      *
-     * @author Denys Dorofeiev <denys.dorofeiev@westwing.de>
-     *
      * @return StateMachineSpecification
      */
     abstract protected function getSpecification();
@@ -197,16 +197,12 @@ trait StateMachine
     /**
      * Returns property name of the statemachine which will be used to store its state
      *
-     * @author Denys Dorofeiev <denys.dorofeiev@westwing.de>
-     *
      * @return string
      */
     abstract protected function getStateProperty();
 
     /**
      * Clear cache
-     *
-     * @author Krzysztof Suchanek <krzysztof.suchanek@westwing.de>
      */
     public static function clearCache()
     {
