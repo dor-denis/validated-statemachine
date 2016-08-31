@@ -131,3 +131,12 @@ The parameters passed to validator are Transition object and the state machine m
 
 If some params are passed to validator (like *exampleParam* in Validator1 in the example), they will be passed to ```__constructor()```
 method of the validator.
+
+### Events
+
+The Symfony's EventDispatcher events are thrown:
+- *transition.executed* - when the transition has been successfully executed
+- *transition.failed* - if the transition failed
+
+To subscribe to events, use ```EventDispatcherSingleton::getDispatcher()``` object.
+For more info on Symfony event dispatcher, check out it's documentation
