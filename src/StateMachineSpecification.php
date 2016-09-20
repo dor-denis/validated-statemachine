@@ -16,23 +16,30 @@ use ValidatedStatemachine\models\Transition;
  */
 abstract class StateMachineSpecification
 {
+    protected static $CACHE;
+
     /**
      * Initializes the State object from State ID from database
      *
-     * @param integer|State $state ID of the state
+     * @param integer $state ID of the state
      *
      * @return State
      * @throws StateDefinitionIncorrectException
      */
-    public function getState($state)
+    public function getState($stateId)
     {
-        if (!$state instanceof State) {
+        $cacheKey = get_class($this) . '-' . $stateId;
+        if (empty(self::$CACHE[$cacheKey])) {
             $states = $this->getStateDefinitions();
-            if (!isset($states[$state])) {
-                throw new StateDefinitionIncorrectException('State with stateId "' . $state . '" not found in ' . get_class($this));
+            if (!isset($states[$stateId])) {
+                throw new StateDefinitionIncorrectException('State with stateId "' . $stateId . '" not found in ' . get_class($this));
             }
 
-            $state = new State($state, $states[$state]);
+            $state = new State($stateId, $states[$stateId]);
+
+            self::$CACHE[$cacheKey] = $state;
+        } else {
+            $state = self::$CACHE[$cacheKey];
         }
 
         $this->initTransitionsForState($state);
@@ -45,9 +52,9 @@ abstract class StateMachineSpecification
      *
      * @param State $state State to add transitions
      *
-     * @return array
+     * @return Transition[]
      */
-    public function initTransitionsForState(State $state)
+    protected function initTransitionsForState(State $state)
     {
         $transitions = $this->getTransitionDefinitions();
         $states      = $this->getStateDefinitions();
@@ -71,7 +78,7 @@ abstract class StateMachineSpecification
                 $toStateId = $transition['to'];
 
                 $stateFrom                                = $state;
-                $stateTo                                  = $this->stateFactory($toStateId, $states[$toStateId]);
+                $stateTo                                  = new State($toStateId, $states[$toStateId]);
                 $transitionObject                         = new Transition($transitionId, [$stateFrom], $stateTo, $transition);
                 $resultTransitionsForState[$transitionId] = $transitionObject;
             }
@@ -79,19 +86,6 @@ abstract class StateMachineSpecification
         $state->addTransitions($resultTransitionsForState);
 
         return $resultTransitionsForState;
-    }
-
-    /**
-     * Method for creation of State objects
-     *
-     * @param integer $stateId ID of the state
-     * @param array   $payload Additional info about the state which will be accessible from State object
-     *
-     * @return State
-     */
-    public function stateFactory($stateId, $payload)
-    {
-        return new State($stateId, $payload);
     }
 
     /**

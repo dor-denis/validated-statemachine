@@ -17,10 +17,11 @@ class State
      * @var integer
      */
     public $stateId;
+
     /**
      * @var array
      */
-    public $payload;
+    protected $payload;
 
     /**
      * @var array
@@ -112,5 +113,15 @@ class State
     public function __toString()
     {
         return (string)$this->stateId;
+    }
+
+    /**
+     * Get payload of the transition
+     *
+     * @return array
+     */
+    public function getPayload()
+    {
+        return $this->payload;
     }
 }

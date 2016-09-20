@@ -140,3 +140,9 @@ The Symfony's EventDispatcher events are thrown:
 
 To subscribe to events, use ```EventDispatcherSingleton::getDispatcher()``` object.
 For more info on Symfony event dispatcher, check out it's documentation
+
+### Visualization
+
+The *HtmlVisualization* class allows you to create a visualization for your state machine using the [sigma.js](http://sigmajs.org/) library.
+It is using ForceAtlas2 algorithm to distribute the states (the nodes of the graph) and then you can drag them as you like.
+After that you can print the result.

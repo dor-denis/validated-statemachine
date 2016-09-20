@@ -50,7 +50,7 @@ trait StateMachine
     {
         $stateId = $this->{$this->getStateProperty()};
 
-        return $this->initState($stateId);
+        return $this->getSpecification()->getState($stateId);
     }
 
     /**
@@ -165,26 +165,6 @@ trait StateMachine
     public function getValidationError()
     {
         return $this->error;
-    }
-
-    /**
-     * Initialize state from its definition
-     *
-     * @param integer $stateId ID of state
-     *
-     * @return State
-     */
-    protected function initState($stateId)
-    {
-        $cacheKey = get_class($this) . '-' . $stateId;
-        if (empty(self::$CACHE[$cacheKey])) {
-            $state                  = $this->getSpecification()->getState($stateId);
-            self::$CACHE[$cacheKey] = $state;
-        } else {
-            $state = self::$CACHE[$cacheKey];
-        }
-
-        return $state;
     }
 
     /**

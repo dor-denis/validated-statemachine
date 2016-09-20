@@ -15,7 +15,7 @@ $canExecute = $model->canExecuteTransition(ExampleStateMachineSpecification::TRA
 echo "Can execute transition " . ExampleStateMachineSpecification::TRANSITION_FROM1_TO_2 . ": " . ($canExecute ? "true" : "false") . PHP_EOL;
 
 echo "Executing transition: " . ExampleStateMachineSpecification::TRANSITION_FROM1_TO_2 . PHP_EOL;
-$model->executeTransition($model->getTransitionByName(ExampleStateMachineSpecification::TRANSITION_FROM1_TO_2));
+$model->executeTransition(ExampleStateMachineSpecification::TRANSITION_FROM1_TO_2);
 echo "Transition executed. Current state: " . $model->stateId . PHP_EOL;
 
 $canExecute = $model->canExecuteTransition(ExampleStateMachineSpecification::TRANSITION_FROM1_TO_2);

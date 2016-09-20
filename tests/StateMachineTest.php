@@ -98,7 +98,7 @@ class StateMachineTest extends PHPUnit_Framework_TestCase
             ]
         );
         $this->statemachine->{$this->statePropertyName} = $stateId;
-        $this->stateMachineSpecification->expects($this->once())->method('getState')->with($stateId)->willReturn($state);
+        $this->stateMachineSpecification->expects($this->any())->method('getState')->with($stateId)->willReturn($state);
 
         $availableTransitions = $this->statemachine->getAvailableTransitions();
         $this->assertCount(2, $availableTransitions, "All validated transitions should be returned");
@@ -157,7 +157,7 @@ class StateMachineTest extends PHPUnit_Framework_TestCase
         $stateId                                        = $this->faker->randomNumber();
         $state                                          = new State($stateId, []);
         $this->statemachine->{$this->statePropertyName} = $stateId;
-        $this->stateMachineSpecification->expects($this->exactly(2))->method('getState')->with($stateId)->willReturn($state);
+        $this->stateMachineSpecification->expects($this->exactly(3))->method('getState')->with($stateId)->willReturn($state);
 
         $this->statemachine->getState();
         $this->statemachine->getState();

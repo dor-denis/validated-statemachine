@@ -1,6 +1,6 @@
 {
     "name": "dor-denis/validated-statemachine",
-    "description": "Basic configurable state machine with ability to validate transitions",
+    "description": "Configurable state machine with ability to validate transitions",
     "type": "library",
     "license": "MIT",
     "authors": [

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>State Machine</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+
+        #container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        #menu {
+            position: absolute;
+            bottom: 2em;
+            right: 2em;
+        }
+
+        @media print
+        {
+            .no-print, .no-print *
+            {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+<script>
+    $JS$
+</script>
+<div id="container"></div>
+<div id="menu">
+    <button id="print" onclick="window.print()" class="no-print">Print</button>
+    <button id="zoom-in" class="no-print">Zoom in</button>
+    <button id="zoom-out" class="no-print">Zoom out</button>
+</div>
+<script>
+    var s = new sigma({
+        renderer: {
+            type: 'canvas',
+            container: 'container'
+        },
+        settings: {
+            minArrowSize: 8,
+            sideMargin: 1
+        }
+    });
+
+    s.graph.read($JSON$);
+
+    s.startForceAtlas2();
+    var dragListener = new sigma.plugins.dragNodes(s, s.renderers[0]);
+
+    dragListener.bind('startdrag', function (event) {
+        s.stopForceAtlas2();
+    });
+
+    setTimeout(function () {
+        s.stopForceAtlas2();
+    }, 3000);
+
+    var exportButton = document.querySelector('#print');
+    exportButton.addEventListener('click', function () {
+        s.refresh();
+    });
+
+    var getCurrentCoordinates = function () {
+        return {x: s.cameras[0].x, y: s.cameras[0].y, ratio: s.cameras[0].ratio, angle: s.cameras[0].angle};
+    };
+
+    var zoomInButton = document.querySelector('#zoom-in');
+    zoomInButton.addEventListener('click', function () {
+        var currentCoordinates = getCurrentCoordinates();
+        currentCoordinates.ratio -= 0.1;
+        s.cameras[0].goTo(currentCoordinates);
+    });
+
+    var zoomOutButton = document.querySelector('#zoom-out');
+    zoomOutButton.addEventListener('click', function () {
+        var currentCoordinates = getCurrentCoordinates();
+        currentCoordinates.ratio += 0.1;
+        s.cameras[0].goTo(currentCoordinates);
+    });
+</script>
+</body>
+</html>
