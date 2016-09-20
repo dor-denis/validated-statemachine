@@ -1,6 +1,7 @@
 {
     "name": "dor-denis/validated-statemachine",
     "description": "Configurable state machine with ability to validate transitions",
+    "keywords":    ["statemachine", "state", "event", "validate"],
     "type": "library",
     "license": "MIT",
     "authors": [
