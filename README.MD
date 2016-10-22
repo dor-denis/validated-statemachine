@@ -4,7 +4,7 @@ A simple statemachine with ability to validate transitions.
 
 ## Usage
 
-You can add the State Machine behaviour to any PHP class by using *StateMachine* trait provided by this package.
+You can add the State Machine behavior to any PHP class by using *StateMachine* trait provided by this package.
 
 ```PHP
 class StateMachineModel

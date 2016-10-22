@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ValidatedStatemachine\visualization\html;
-
 
 use ValidatedStatemachine\StateMachineSpecification;
 use ValidatedStatemachine\visualization\VisualizationInterface;
@@ -56,7 +54,7 @@ class HtmlVisualization implements VisualizationInterface
                 "x"     => mt_rand() / mt_getrandmax(),
                 "y"     => mt_rand() / mt_getrandmax(),
                 "size"  => 1,
-                "color" => "#f00",
+                "color" => isset($state->getPayload()['color']) ? $state->getPayload()['color'] : "#f00",
             ];
 
             $transitions = $state->getTransitions();

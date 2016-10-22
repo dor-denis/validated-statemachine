@@ -7,37 +7,49 @@ use ValidatedStatemachine\StateMachineSpecification;
 
 class ExampleStateMachineSpecification extends StateMachineSpecification
 {
-    const STATE_1 = 100;
-    const STATE_2 = 200;
-    const STATE_3 = 300;
-    const STATE_4 = 400;
+    const STATE_PENDING = "pending";
+    const STATE_SHIPPED = "shipped";
+    const STATE_CANCELLED = "cancelled";
+    const STATE_DELIVERED = "delivered";
+    const STATE_FAILED = "failed";
 
-    const TRANSITION_FROM1_TO_2 = "from_1_to_2";
-    const TRANSITION_FROM3_TO_4 = "from_3_to_4";
+    const TRANSITION_SHIP = "ship";
+    const TRANSITION_CANCEL = "cancel";
+    const TRANSITION_DELIVER = "deliver";
+    const TRANSITION_DELIVERY_FAILED = "delivery_failed";
 
     public function getStateDefinitions()
     {
         return [
-            self::STATE_1 => [],
-            self::STATE_2 => [],
-            self::STATE_3 => [],
-            self::STATE_4 => [],
+            self::STATE_PENDING => ["color" => "orange"],
+            self::STATE_SHIPPED => ["color" => "green"],
+            self::STATE_CANCELLED => ["color" => "darkgrey"],
+            self::STATE_DELIVERED => ["color" => "darkgreen"],
+            self::STATE_FAILED => ["color" => "red"],
         ];
     }
 
     public function getTransitionDefinitions()
     {
         return [
-            self::TRANSITION_FROM1_TO_2 => [
-                'from' => self::STATE_1,
-                'to'   => self::STATE_2
-            ],
-            self::TRANSITION_FROM3_TO_4 => [
-                'from' => self::STATE_3,
-                'to'   => self::STATE_4,
+            self::TRANSITION_SHIP => [
+                'from' => self::STATE_PENDING,
+                'to'   => self::STATE_SHIPPED,
                 'validators' => [
                     [new Validator(), []]
                 ]
+            ],
+            self::TRANSITION_CANCEL => [
+                'from' => self::STATE_PENDING,
+                'to'   => self::STATE_CANCELLED
+            ],
+            self::TRANSITION_DELIVER => [
+                'from' => self::STATE_SHIPPED,
+                'to'   => self::STATE_DELIVERED
+            ],
+            self::TRANSITION_DELIVERY_FAILED => [
+                'from' => self::STATE_SHIPPED,
+                'to'   => self::STATE_FAILED
             ],
         ];
     }
