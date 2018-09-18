@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "symfony/event-dispatcher": "^StateMachineTest.php4"
+        "symfony/event-dispatcher": "^4"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.4",
