@@ -142,13 +142,17 @@ class StateMachineTest extends PHPUnit_Framework_TestCase
         /**
          * @var Transition|PHPUnit_Framework_MockObject_MockObject $transition
          */
-        $transition     = $this->getMockBuilder(Transition::class)->disableOriginalConstructor()->getMock();
-        $transition->to = new State(mt_rand(0, 10000), []);
+        $transition1     = $this->getMockBuilder(Transition::class)->disableOriginalConstructor()->getMock();
+        $transition1->to = new State(mt_rand(0, 10000), []);
+        $transition2     = $this->getMockBuilder(Transition::class)->disableOriginalConstructor()->getMock();
+        $transition2->to = new State(mt_rand(0, 10000), []);
+        $transition3     = $this->getMockBuilder(Transition::class)->disableOriginalConstructor()->getMock();
+        $transition3->to = new State(mt_rand(0, 10000), []);
 
         return [
-            'Can execute'                                             => [$transition, true, true, true],
-            'Transition is not validated'                             => [$transition, false, true, false],
-            'This transition is not available from the current state' => [$transition, true, false, false],
+            'Can execute'                                             => [$transition1, true, true, true],
+            'Transition is not validated'                             => [$transition2, false, true, false],
+            'This transition is not available from the current state' => [$transition3, true, false, false],
         ];
     }
 
